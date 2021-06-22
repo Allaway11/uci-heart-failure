@@ -100,7 +100,7 @@ curl -X POST --header "Content-Type: application/json" -d @data/test_post_reques
 
 ## Tests
 
-To run the unit tests associated with the api run the following command in the terminal
+To run the unit tests associated with the api run the following command in the terminal from the root of the repo:
 
 ```bash
 python -m pytest test_api.py --cov=api --cov-report=term
