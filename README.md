@@ -46,7 +46,7 @@ As this dataset is small (299 examples in total) only simple ML models have been
 in the ensemble to avoid overfitting. Due to the lightweight resource requirements of the models, training of the model 
 occurs on server start up. 
 
-The models can be trained and benchmarked by running the following command:
+The models can be trained and benchmarked by running the following command from the repo root:
 
 ```bash
 python -m train
@@ -66,7 +66,7 @@ weighted avg       0.80      0.80      0.80        60
 
 ```
 
-To start up the server and train the model we can run the following command from the terminal:
+To start up the server and train the model we can run the following command from the root of the repo in the terminal:
 
 ```bash
 uvicorn api:app
@@ -93,7 +93,7 @@ We can then test out a post request on the "/predict" endpoint using the browser
 }
 ```
 
-or send a curl request e.g.:
+or send a curl request from the root of the repo e.g.:
 ```bash
 curl -X POST --header "Content-Type: application/json" -d @data/test_post_request.json http://localhost:8000/predict   
 ```
