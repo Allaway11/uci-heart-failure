@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
-from sklearn.svm import SVC
-from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier
 from sklearn.metrics import classification_report
 from sklearn.neural_network import MLPClassifier
-from sklearn.ensemble import RandomForestClassifier, VotingClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.svm import SVC
 
 
 class ClassifierModel:

@@ -1,9 +1,11 @@
+from typing import Optional, List, Dict
+
+import pandas as pd
+import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Optional, List, Dict
-import uvicorn
+
 from train import ClassifierModel
-import pandas as pd
 
 
 class PredictRequest(BaseModel):
