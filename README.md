@@ -43,8 +43,28 @@ python -m create_test_dataset
 ## Model Serving
 
 As this dataset is small (299 examples in total) only simple ML models have been chosen (Random Forests, SVM, MLPs)
-to avoid overfitting. Due to the lightweight resource requirements of the models, training of the model occurs on 
-server start up. 
+in the ensemble to avoid overfitting. Due to the lightweight resource requirements of the models, training of the model 
+occurs on server start up. 
+
+The models can be trained and benchmarked by running the following command:
+
+```bash
+python -m train
+```
+
+This should result in the following output:
+
+```text
+              precision    recall  f1-score   support
+
+           0       0.84      0.88      0.86        41
+           1       0.71      0.63      0.67        19
+
+    accuracy                           0.80        60
+   macro avg       0.77      0.75      0.76        60
+weighted avg       0.80      0.80      0.80        60
+
+```
 
 To start up the server and train the model we can run the following command from the terminal:
 

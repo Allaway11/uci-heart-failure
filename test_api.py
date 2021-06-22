@@ -3,11 +3,11 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
-import api
 from api import app
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIXTURES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 @pytest.fixture(autouse=True)
 def mock_clf(mocker):
     clf = mocker.Mock()
@@ -16,10 +16,10 @@ def mock_clf(mocker):
 
 
 @pytest.fixture(autouse=True)
-def mock_train(mocker, mock_clf):
-    train = mocker.patch.object(api, "train")
-    train.return_value = mock_clf
-    return train
+def mock_classifier(mocker, mock_clf):
+    classifier = mocker.patch("api.ClassifierModel")
+    classifier.return_value = mock_clf
+    return classifier
 
 
 @pytest.fixture()
@@ -67,14 +67,23 @@ def test_root_endpoint(client):
     assert response.status_code == 200
 
 
+def test_get_predict_endpoint(client):
+    response = client.get("/predict")
+    text = json.loads(response.text)
+    assert not text["predictions"]
+    assert text["error"] == "Send a POST request to this endpoint with 'features' data."
+    assert response.status_code == 200
+
+
 @pytest.mark.parametrize("kwargs, expected", get_model_predictions_examples)
-def test_get_model_predictions_http_client_failures(client, kwargs, expected):
+def test_post_predict_http_client_failures(client, kwargs, expected):
     response = client.post(**kwargs)
     assert response.status_code == expected
 
 
-def test_get_model_predictions(client):
+def test_post_predict(client):
     with client as c:
-        response = c.post(url="/predict", headers={"Content-Type": "application/json"}, data=json.dumps({"features": example_features}))
+        response = c.post(url="/predict", headers={"Content-Type": "application/json"},
+                          data=json.dumps({"features": example_features}))
         text = json.loads(response.text)
         assert text["predictions"][0]["prediction"] == 1.0

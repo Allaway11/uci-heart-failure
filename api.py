@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Optional, List, Dict
 import uvicorn
-from train import train, ClassifierModel
+from train import ClassifierModel
 import pandas as pd
 
 
@@ -16,12 +16,15 @@ class ModelResponse(BaseModel):
 
 
 app = FastAPI()
-clf = ClassifierModel()
+# followed FastApi documentation for events on startup https://fastapi.tiangolo.com/advanced/events/
+model_dict = {}
 
 
 @app.on_event("startup")
 async def train_model():
-    clf.model = train()
+    clf = ClassifierModel()
+    clf.train_model()
+    model_dict["model"] = clf
 
 
 @app.get("/", response_model=ModelResponse)
@@ -40,7 +43,7 @@ async def explain_api() -> ModelResponse:
 async def get_model_predictions(request: PredictRequest) -> ModelResponse:
     # Load data into pandas dataframe from request
     data = pd.DataFrame.from_dict(data=request.features, orient="index").T
-    response = [{"prediction": p} for p in clf.model.predict(data)]
+    response = [{"prediction": p} for p in model_dict["model"].predict(data)]
     return ModelResponse(
         predictions=response
     )
