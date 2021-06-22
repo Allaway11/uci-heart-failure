@@ -28,13 +28,10 @@ and can be downloaded to the data directory using the following command executed
 wget https://archive.ics.uci.edu/ml/machine-learning-databases/00519/heart_failure_clinical_records_dataset.csv -P data/
 ```
 
-To train ML models we next need to create a training dataset and a holdout test dataset. To achieve this we can use the 
-`create_test_dataset.py` script to split the original dataset into a training dataset ("data/train.json") with 80% of 
-the data and a holdout test set with 20% of the data (To train ML models we next need to create a training dataset and a
-holdout test dataset. To achieve this we can use the `create_test_dataset.py` script to split the original dataset into 
-a training dataset (data/train.json) with 80% of the data and a holdout test set with 20% of the data (data/test.json). 
-An example json file to be used as part of the curl request to the model server api is also generated - this contains
-the first example in the test dataset (data/test_post_request.json).
+To train the ML models we next need to create a training dataset and a holdout test dataset. To achieve this we can use the
+`create_test_dataset.py` script to split the original dataset into a training dataset (data/train.json) with 80% of the 
+data and a holdout test set with 20% of the data (data/test.json). An example json file to be used as part of the curl
+request to the model server api is also generated - this contains the first example in the test dataset (data/test_post_request.json).
 
 ```bash
 python -m create_test_dataset
