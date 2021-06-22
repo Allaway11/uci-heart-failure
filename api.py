@@ -47,4 +47,5 @@ async def get_model_predictions(request: PredictRequest) -> ModelResponse:
 
 
 if __name__ == "__main__":
+    # To enable debugging this entrypoint to the uvicorn server has been created
     uvicorn.run(app, host="0.0.0.0", port=8000)
